@@ -14,13 +14,13 @@ questions:
   group: "Container Images"
   subquestions:
   - variable: image.repository
-    default: "bitnami/jasperreports"
-    description: "JasperReports image name"
+    default: "bitnami/phabricator"
+    description: "Phabricator image name"
     type: string
-    label: JasperReports Image Name
+    label: Phabricator Image Name
   - variable: image.tag
-    default: "7.2.0-debian-10-r72"
-    description: "JasperReports image tag"
+    default: "2020.7.0-debian-10-r60"
+    description: "Phabricator image tag"
     type: string
     label: Image Tag
   - variable: mariadb.image.repository
@@ -33,26 +33,40 @@ questions:
     description: "MariaDB image tag"
     type: string
     label: MariaDB Image Tag
-- variable: jasperreportsUsername
+- variable: phabricatorUsername
   default: "user"
   description: "User of the application"
   type: string
   required: true
-  label: JasperReports Usernname
-  group: "JasperReports Settings"
-- variable: jasperreportsPassword
+  label: Phabricator Usernname
+  group: "Phabricator Settings"
+- variable: phabricatorPassword
   default: ""
   description: "password will be auto-generated if not specified"
   type: password
-  label: JasperReports Password
-  group: "JasperReports Settings"
-- variable: jasperreportsEmail
+  label: Phabricator Password
+  group: "Phabricator Settings"
+- variable: phabricatorEmail
   default: "user@example.com"
   description: "Admin email"
   type: string
   required: true
-  label: JasperReports Admin Email
-  group: "JasperReports Settings"
+  label: Phabricator Admin Email
+  group: "Phabricator Settings"
+- variable: phabricatorFirstName
+  default: "First Name"
+  description: "phabricator FirstName"
+  type: string
+  required: true
+  label: phabricator FirstName
+  group: "Phabricator Settings"
+  - variable: phabricatorLastName
+  default: "Last Name"
+  description: "phabricator LastName"
+  type: string
+  required: true
+  label: phabricator LastName
+  group: "Phabricator Settings"
 - variable: mariadb.enabled
   default: true
   description: "Deploy a database server as part of this deployment, or set to false and configure an external database connection."
@@ -63,12 +77,12 @@ questions:
   group: "Database Settings"
   subquestions:
   - variable: mariadb.db.name
-    default: "bitnami_jasperreports"
+    default: "phabricator"
     description: "Database name to create"
     type: string
     label: MariaDB Database
   - variable: mariadb.db.user
-    default: "bn_jasperreports"
+    default: "bn_wordpress"
     description: "Database user to create"
     type: string
     label: MariaDB User
@@ -139,28 +153,28 @@ questions:
     label: Default StorageClass for MariaDB
 - variable: persistence.enabled
   default: false
-  description: "Enable persistent volume for JasperReports"
+  description: "Enable persistent volume for Phabricator"
   type: boolean
   required: true
-  label: JasperReports Persistent Volume Enabled
+  label: Phabricator Persistent Volume Enabled
   show_subquestion_if: true
-  group: "JasperReports Settings"
+  group: "Phabricator Settings"
   subquestions:
   - variable: persistence.size
     default: "10Gi"
-    description: "JasperReports Persistent Volume Size"
+    description: "Phabricator Persistent Volume Size"
     type: string
-    label: JasperReports Volume Size
+    label: Phabricator Volume Size
   - variable: persistence.storageClass
     default: ""
     description: "If undefined or null, uses the default StorageClass. Default to null"
     type: storageclass
-    label: Default StorageClass for JasperReports
+    label: Default StorageClass for Phabricator
   - variable: persistence.existingClaim
     default: ""
     description: "If not empty, uses the specified existing PVC instead of creating new one"
     type: pvc
-    label: Existing Persistent Volume Claim for JasperReports
+    label: Existing Persistent Volume Claim for Phabricator
 - variable: ingress.enabled
   default: true
   description: "Expose app using Layer 7 Load Balancer - ingress"
@@ -171,13 +185,13 @@ questions:
   subquestions:
   - variable: ingress.hosts[0].name
     default: "xip.io"
-    description: "Hostname to your JasperReports installation"
+    description: "Hostname to your Phabricator installation"
     type: hostname
     required: true
     label: Hostname
 - variable: service.type
   default: "NodePort"
-  description: "JasperReports Service type"
+  description: "Phabricator Service type"
   type: enum
   show_if: "ingress.enabled=false"
   options:
@@ -185,7 +199,7 @@ questions:
   - "NodePort"
   - "LoadBalancer"
   required: true
-  label: JasperReports Service Type
+  label: Phabricator Service Type
   show_subquestion_if: "NodePort"
   group: "Services and Load Balancing"
   subquestions:
