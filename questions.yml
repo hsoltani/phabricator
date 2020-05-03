@@ -60,7 +60,7 @@ questions:
   required: true
   label: phabricator FirstName
   group: "Phabricator Settings"
-  - variable: phabricatorLastName
+- variable: phabricatorLastName
   default: "Last Name"
   description: "phabricator LastName"
   type: string
